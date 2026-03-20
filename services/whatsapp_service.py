@@ -1,7 +1,17 @@
+import os
+import streamlit as st
 from twilio.rest import Client
+from dotenv import load_dotenv
 
-ACCOUNT_SID = "hamma"
-AUTH_TOKEN = "tamma"
+# Load environment variables
+load_dotenv()
+
+try:
+    ACCOUNT_SID = st.secrets["TWILIO_ACCOUNT_SID"]
+    AUTH_TOKEN = st.secrets["TWILIO_AUTH_TOKEN"]
+except:
+    ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
+    AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 
 FROM_WHATSAPP = "whatsapp:+14155238886"
 
