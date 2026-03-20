@@ -10,6 +10,23 @@ apply_sidebar_style()
 
 st.set_page_config(layout="wide")
 
+import re
+
+def normalize_url(url):
+    url = str(url).strip().lower()
+
+    # YouTube
+    yt_match = re.search(r"(?:v=|youtu\.be/)([^&]+)", url)
+    if yt_match:
+        return f"youtube_{yt_match.group(1)}"
+
+    # Instagram
+    ig_match = re.search(r"instagram\.com/.+?/([^/?]+)", url)
+    if ig_match:
+        return f"instagram_{ig_match.group(1)}"
+
+    return url
+
 # =========================
 # PAGE STYLE
 # =========================
@@ -177,20 +194,58 @@ for index, row in df.iterrows():
 
         if st.button("Mark Completed", key=f"complete{row['task_id']}"):
 
-            data = row.to_dict()
+            url_clean = str(url).strip()
 
-            data["video_url"] = url
-            data["status"] = "Completed"
-            data["completed_date"] = str(datetime.today().date())
+            # 🚨 1. EMPTY CHECK
+            if not url_clean:
+                st.error("⚠️ Please paste Video URL before marking as completed")
 
-            data.pop("task_id", None)
+            else:
+                # ✅ Normalize input
+                normalized_input = normalize_url(url_clean)
 
-            update_row("Work_Assignments", "task_id", row["task_id"], data)
-            
-            st.cache_data.clear()
-            st.session_state.pop("app_data", None)
-            st.success("Task marked as Completed")
-            st.rerun()
+                # 🔄 Load latest data
+                latest_data = load_data()
+                latest_tasks_df = latest_data["tasks"]
+
+                existing_urls = latest_tasks_df[
+                    latest_tasks_df["video_url"].notna()
+                ].copy()
+
+                # 🚨 Exclude current row
+                existing_urls = existing_urls[
+                    existing_urls["task_id"] != row["task_id"]
+                ]
+
+                # ✅ Normalize existing URLs
+                existing_urls["video_url_norm"] = existing_urls["video_url"].apply(normalize_url)
+
+                # 🚨 FINAL DUPLICATE CHECK
+                if existing_urls["video_url_norm"].eq(normalized_input).any():
+
+                    dup_row = existing_urls[
+                        existing_urls["video_url_norm"] == normalized_input
+                    ].iloc[0]
+
+                    st.error(
+                        f"⚠️ This video is already used for {dup_row['client_name']} - {dup_row['month']}"
+                    )
+
+                else:
+                    data = row.to_dict()
+
+                    data["video_url"] = url_clean
+                    data["status"] = "Completed"
+                    data["completed_date"] = str(datetime.today().date())
+
+                    data.pop("task_id", None)
+
+                    update_row("Work_Assignments", "task_id", row["task_id"], data)
+
+                    st.cache_data.clear()
+                    st.session_state.pop("app_data", None)
+                    st.success("Task marked as Completed")
+                    st.rerun()
 
     # Completed Task
     else:
