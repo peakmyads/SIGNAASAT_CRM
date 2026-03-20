@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-from services.db_service import update_row
 from services.db_service import append_row
 from services.data_loader import load_data
 
