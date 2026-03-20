@@ -140,7 +140,7 @@ with col4:
     fy = st.selectbox("Financial Year", fy_list)
 
 with col5:
-    month_list = get_month_list(fy)
+    month_list = ["All"] + get_month_list(fy)
     month_select = st.selectbox("Month", month_list)
 
 # =========================
@@ -163,7 +163,8 @@ if work != "All":
     df = df[df["work_type"] == work]
 
 # Month filter (MMM-YYYY format)
-df = df[df["month"] == month_select]
+if month_select != "All":
+    df = df[df["month"] == month_select]
 
 if df.empty:
     st.warning("No tasks for selected filters.")
