@@ -64,8 +64,70 @@ with tab1:
         "Platform",
         ["Instagram", "YouTube"]
     )
+    
+    tasks_df = data.get("tasks", pd.DataFrame())
 
-    video_url = st.text_input("Video URL")
+    # Platform → Work Type Mapping
+    if platform == "Instagram":
+        work_types = ["Reel", "Story Creative"]
+    elif platform == "YouTube":
+        work_types = ["YouTube Video"]
+    else:
+        work_types = []
+
+    # Filter completed tasks based on client + platform mapping
+    completed_tasks = tasks_df[
+        (tasks_df["status"].astype(str).str.strip() == "Completed") &
+        (tasks_df["client_name"].astype(str).str.strip() == client) &
+        (tasks_df["work_type"].astype(str).str.strip().isin(work_types)) &
+        (tasks_df["video_url"].astype(str).str.strip() != "")
+    ]
+
+    if completed_tasks.empty:
+        st.warning("No completed videos found for selected client & platform")
+        video_url = ""
+    else:
+        # Create label for better UX
+        completed_tasks["label"] = (
+            completed_tasks["month"] + " | " +
+            completed_tasks["work_type"] + " | " +
+            completed_tasks["video_url"]
+        )
+
+        url_map = dict(zip(completed_tasks["label"], completed_tasks["video_url"]))
+
+        selected_label = st.selectbox(
+            "Select Video",
+            ["Select Video"] + list(url_map.keys())
+        )
+
+        video_url = url_map.get(selected_label, "")
+        
+        # 🎬 Video Preview
+        if video_url:
+
+            st.markdown("### 🎬 Video Preview")
+
+            # YouTube Preview
+            if "youtube.com" in video_url or "youtu.be" in video_url:
+                st.video(video_url)
+
+            # Instagram Preview (limited support)
+            elif "instagram.com" in video_url:
+                st.markdown(
+                    f"""
+                    <a href="{video_url}" target="_blank">
+                        🔗 Click to view Instagram video
+                    </a>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+            else:
+                st.info("Preview not available for this URL type")
+
+        if selected_label == "Select Video":
+            video_url = ""
 
     views = st.number_input("Views", min_value=0)
     likes = st.number_input("Likes", min_value=0)
