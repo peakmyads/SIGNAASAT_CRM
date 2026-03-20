@@ -1,10 +1,6 @@
 import os
 import streamlit as st
 from twilio.rest import Client
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 try:
     ACCOUNT_SID = st.secrets["TWILIO_ACCOUNT_SID"]
