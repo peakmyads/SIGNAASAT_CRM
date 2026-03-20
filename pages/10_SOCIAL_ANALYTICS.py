@@ -9,6 +9,15 @@ from services.data_loader import load_data
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
+import re
+
+def get_youtube_thumbnail(url):
+    match = re.search(r"(?:v=|youtu\.be/)([^&]+)", url)
+    if match:
+        video_id = match.group(1)
+        return f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+    return None
+
 st.set_page_config(layout="wide")
 
 st.title("📊 Social Media Analytics")
@@ -104,20 +113,44 @@ with tab1:
         video_url = url_map.get(selected_label, "")
         
         # 🎬 Video Preview
+        # 🎬 Thumbnail Preview
+        # 🎬 Video Preview
         if video_url:
 
-            st.markdown("### 🎬 Video Preview")
+            st.markdown("### 🖼️ Video Preview")
 
-            # YouTube Preview
             if "youtube.com" in video_url or "youtu.be" in video_url:
-                st.video(video_url)
 
-            # Instagram Preview (limited support)
+                import re
+
+                def get_youtube_id(url):
+                    match = re.search(r"(?:v=|youtu\.be/)([^&]+)", url)
+                    return match.group(1) if match else None
+
+                video_id = get_youtube_id(video_url)
+
+                if video_id:
+                    thumb = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+
+                    # ✅ Clean clickable thumbnail (NO extra space)
+                    st.markdown(
+                        f"""
+                        <div style="max-width:500px;">
+                            <a href="{video_url}" target="_blank">
+                                <img src="{thumb}" 
+                                     style="width:100%; border-radius:10px; display:block;">
+                            </a>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+            # Instagram (fallback)
             elif "instagram.com" in video_url:
                 st.markdown(
                     f"""
                     <a href="{video_url}" target="_blank">
-                        🔗 Click to view Instagram video
+                        📸 View Instagram Post
                     </a>
                     """,
                     unsafe_allow_html=True
