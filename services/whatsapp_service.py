@@ -1,7 +1,7 @@
 from twilio.rest import Client
 
 ACCOUNT_SID = "AC0d21857844791044ee5c7a1feb5df464"
-AUTH_TOKEN = "fd52d403396a82fa3818e04ea47a19e5"
+AUTH_TOKEN = "532a5368a376ee6adff7f08ac1ea379c"
 
 FROM_WHATSAPP = "whatsapp:+14155238886"
 
