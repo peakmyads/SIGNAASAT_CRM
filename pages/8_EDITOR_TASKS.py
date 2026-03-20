@@ -182,7 +182,7 @@ for index, row in df.iterrows():
             data["status"] = "Completed"
             data["completed_date"] = str(datetime.today().date())
 
-            update_row("Work_Assignments", index + 2, data)
+            update_row("Work_Assignments", "task_id", row["task_id"], data)
 
             st.session_state.pop("app_data", None)
             st.warning("Task reopened")
@@ -200,7 +200,7 @@ for index, row in df.iterrows():
             data["status"] = "Pending"
             data["completed_date"] = ""
 
-            update_row("Work_Assignments", index + 2, data)
+            update_row("Work_Assignments", "task_id", row["task_id"], data)
 
             st.session_state.pop("app_data", None)
             st.warning("Task reopened")
