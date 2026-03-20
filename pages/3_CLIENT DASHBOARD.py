@@ -187,12 +187,12 @@ for item in package_string.split(","):
 # =========================
 
 summary = (
-    client_tasks.groupby("work_type")
+    client_tasks.groupby(["month", "work_type"])
     .agg(
         total=("task_id","count"),
         completed=("status", lambda x: (x=="Completed").sum())
     )
-)
+).reset_index()
 
 summary["pending"] = summary["total"] - summary["completed"]
 
@@ -208,7 +208,12 @@ for _, row in summary.iterrows():
 
     progress = completed / total if total > 0 else 0
 
-    st.write(f"**{work}**  ({completed} / {total})")
+    month = row["month"]
+    work = row["work_type"]
+    completed = row["completed"]
+    total = row["total"]
+
+    st.write(f"**{month} | {work}** ({completed} / {total})")
 
     st.progress(progress)
 
@@ -281,6 +286,9 @@ for _, row in summary.iterrows():
 
     progress = completed / package_total
 
-    st.write(f"**{work}** ({completed} / {package_total})")
+    month = row["month"]
+    work = row["work_type"]
+
+    st.write(f"**{month} | {work}** ({completed} / {package_total})")
 
     st.progress(progress)
