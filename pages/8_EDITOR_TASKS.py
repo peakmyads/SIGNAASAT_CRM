@@ -183,10 +183,13 @@ for index, row in df.iterrows():
             data["status"] = "Completed"
             data["completed_date"] = str(datetime.today().date())
 
-            update_row("Work_Assignments", "task_id", row["task_id"], data)
+            data.pop("task_id", None)
 
+            update_row("Work_Assignments", "task_id", row["task_id"], data)
+            
+            st.cache_data.clear()
             st.session_state.pop("app_data", None)
-            st.warning("Task reopened")
+            st.success("Task marked as Completed")
             st.rerun()
 
     # Completed Task
@@ -200,11 +203,15 @@ for index, row in df.iterrows():
 
             data["status"] = "Pending"
             data["completed_date"] = ""
+            data["video_url"] = ""
+
+            data.pop("task_id", None)
 
             update_row("Work_Assignments", "task_id", row["task_id"], data)
-
+            
+            st.cache_data.clear()
             st.session_state.pop("app_data", None)
-            st.warning("Task reopened")
+            st.success("Task Reopened")
             st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
