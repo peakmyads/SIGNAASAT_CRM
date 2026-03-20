@@ -20,7 +20,7 @@ def send_whatsapp(phone, client_name, work_type, month):
     if not phone.startswith("whatsapp:"):
         phone = "whatsapp:" + phone
 
-    dashboard_link = "http://localhost:8501/Client_Dashboard"
+    dashboard_link = "https://signaasatcrm-xu4ftvrp2dwgbq7pns3gkq.streamlit.app/EDITOR_TASKS"
 
     message_body = f"""
 🎬 *New Task Assigned*
