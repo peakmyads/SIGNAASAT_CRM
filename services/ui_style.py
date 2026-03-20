@@ -4,9 +4,21 @@ def apply_sidebar_style():
 
     # ===== SIDEBAR TOP (LOGO + TITLE) =====
     with st.sidebar:
-        
+
+        # ✅ ADD LOGO HERE
+        import base64
+
+        with open("assets/logo.png", "rb") as f:
+            encoded = base64.b64encode(f.read()).decode()
+
+        st.markdown(f"""
+            <div style="text-align:center; padding:10px 0;">
+                <img src="data:image/png;base64,{encoded}" width="180">
+            </div>
+        """, unsafe_allow_html=True)
+
         st.markdown(
-            "<h2 style='text-align:left; color:#60A5FA;'>Signaasat CRM</h2>",
+            "<h2 style='text-align:center; color:#60A5FA;'>Signaasat CRM Tool</h2>",
             unsafe_allow_html=True
         )
 
