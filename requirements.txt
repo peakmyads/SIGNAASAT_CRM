@@ -1,0 +1,7 @@
+streamlit
+pandas
+oauth2client
+reportlab
+dropbox
+plotly
+twilio
