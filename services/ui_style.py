@@ -75,6 +75,19 @@ def apply_sidebar_style():
     
     /* Top header (Fork / GitHub / menu) */
     header[data-testid="stHeader"] {
+        background: transparent !important;
+    }
+    
+    /* Hide only unwanted items */
+    button[title="Fork this app"] {
+        display: none !important;
+    }
+    
+    a[href*="github.com"] {
+        display: none !important;
+    }
+    
+    button[aria-label="Main menu"] {
         display: none !important;
     }
     
