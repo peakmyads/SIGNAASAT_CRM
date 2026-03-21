@@ -10,7 +10,10 @@ from services.email_service import send_invoice_email
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.title("🧾 Invoice History")
 
