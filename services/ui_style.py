@@ -119,6 +119,30 @@ def apply_sidebar_style():
     .block-container {
         padding-top: 1rem !important;
     }
+
+    /* ===== FORCE HIDE TOP RIGHT CONTROLS ===== */
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 220px;
+        height: 80px;
+        background: white; /* match your app background */
+        z-index: 9999;
+    }
+    
+    /* ===== FORCE HIDE BOTTOM RIGHT BUTTON ===== */
+    body::before {
+        content: "";
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 200px;
+        height: 80px;
+        background: white;
+        z-index: 9999;
+    }
     
     </style>
     """, unsafe_allow_html=True)
