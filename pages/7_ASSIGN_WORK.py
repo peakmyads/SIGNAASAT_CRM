@@ -12,7 +12,10 @@ from services.workload_service import get_least_busy_editor
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # =========================
 # UI STYLE
