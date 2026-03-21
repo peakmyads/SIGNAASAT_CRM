@@ -10,6 +10,11 @@ from datetime import datetime
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 st.title("📈 Management Dashboard")
 
 # LOAD DATA FIRST
