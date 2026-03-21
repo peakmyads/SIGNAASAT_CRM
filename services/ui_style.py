@@ -99,8 +99,19 @@ def apply_sidebar_style():
         display: none !important;
     }
 
-    /* Hide bottom-right "Manage app" button */
-    div[data-testid="stStatusWidget"] {
+    /* Hide bottom-right "Manage app" completely */
+    div[data-testid="stStatusWidget"],
+    div[data-testid="stStatusWidget"] * {
+        display: none !important;
+    }
+
+    /* Backup selector (new UI cases) */
+    div:has(button[title="Manage app"]) {
+        display: none !important;
+    }
+
+    /* Another fallback */
+    button[title="Manage app"] {
         display: none !important;
     }
     
