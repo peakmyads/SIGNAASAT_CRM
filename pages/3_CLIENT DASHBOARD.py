@@ -10,7 +10,10 @@ apply_sidebar_style()
 # PAGE CONFIG
 # =========================
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # =========================
 # PAGE STYLE
