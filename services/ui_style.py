@@ -23,42 +23,7 @@ def apply_sidebar_style():
         )
 
         st.markdown("---")
-        st.markdown("""
-        <style>
-    
-        /* Hide top header (Fork / GitHub / menu) */
-        header[data-testid="stHeader"] {
-            display: none !important;
-        }
-    
-        /* Hide "Hosted with Streamlit" badge */
-        [data-testid="stDecoration"] {
-            display: none !important;
-        }
-    
-        /* Hide footer */
-        footer {
-            display: none !important;
-        }
-    
-        /* Hide hamburger menu */
-        #MainMenu {
-            visibility: hidden;
-        }
-    
-        /* Remove top spacing after header removal */
-        .block-container {
-            padding-top: 1rem !important;
-        }
-    
-        /* Extra safety (covers newer UI changes) */
-        div[data-testid="stToolbar"] {
-            display: none !important;
-        }
-    
-        </style>
-        """, unsafe_allow_html=True)
-    
+          
     # ===== CSS =====
     st.markdown("""
     <style>
@@ -107,4 +72,3 @@ def apply_sidebar_style():
     
     </style>
     """, unsafe_allow_html=True)
-    
