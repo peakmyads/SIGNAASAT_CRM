@@ -6,7 +6,10 @@ from services.db_service import get_all, update_row
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.title("🛠 Admin Data Editor")
 
