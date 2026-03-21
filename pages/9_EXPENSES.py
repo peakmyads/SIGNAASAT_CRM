@@ -7,7 +7,10 @@ from services.data_loader import load_data
 from services.ui_style import apply_sidebar_style
 apply_sidebar_style()
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.title("📊 Expense Tracking")
 
