@@ -28,6 +28,7 @@ def apply_sidebar_style():
     st.markdown("""
     <style>
 
+    /* ===== SIDEBAR ===== */
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, #0B1E3D 0%, #08142B 100%);
     }
@@ -36,38 +37,76 @@ def apply_sidebar_style():
         color: white !important;
     }
 
+    /* Sidebar links */
     [data-testid="stSidebarNav"] a {
         color: #E5E7EB !important;
         font-size: 15px !important;
-        font-weight: 600 !important;   /* 👈 ADD THIS */
+        font-weight: 600 !important;
         padding: 10px 15px !important;
         border-radius: 10px !important;
         margin-bottom: 5px !important;
         display: block !important;
     }
-    
+
+    /* Remove first item */
     [data-testid="stSidebarNav"] ul li:first-child {
         display: none;
     }
-    
+
+    /* Hover */
     [data-testid="stSidebarNav"] a:hover {
         background-color: #FFDE21 !important;
     }
 
+    /* Active */
     [data-testid="stSidebarNav"] a[aria-current="page"] {
         background-color: #2563EB !important;
         font-weight: 700 !important;
     }
-    
-    [data-testid="stSidebarNav"] ul li a {
-        padding-left: 15px !important;
-    }
 
-    /* Sub-items (with dot numbering like 1.1, 2.1) */
+    /* Sub-items */
     [data-testid="stSidebarNav"] ul li a[href*="."] {
         padding-left: 30px !important;
         font-size: 14px !important;
         color: #CBD5F5 !important;
+    }
+
+    /* ===== KEEP HEADER (FOR >> BUTTON) ===== */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+    }
+
+    /* Hide only unwanted header elements */
+    button[title="Fork this app"] {
+        display: none !important;
+    }
+
+    a[href*="github.com"] {
+        display: none !important;
+    }
+
+    button[aria-label="Main menu"] {
+        display: none !important;
+    }
+
+    /* Hide Streamlit badge */
+    [data-testid="stDecoration"] {
+        display: none !important;
+    }
+
+    /* Hide footer */
+    footer {
+        display: none !important;
+    }
+
+    /* Hide bottom-right "Manage app" button */
+    div[data-testid="stStatusWidget"] {
+        display: none !important;
+    }
+    
+    /* Remove top spacing */
+    .block-container {
+        padding-top: 1rem !important;
     }
     
     </style>
