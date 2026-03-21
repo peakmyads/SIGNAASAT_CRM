@@ -102,6 +102,10 @@ def apply_sidebar_style():
     .block-container {
         padding-top: 1rem !important;
     }
+
+    iframe {
+        display: none !important;
+    }
     
     </style>
     """, unsafe_allow_html=True)
