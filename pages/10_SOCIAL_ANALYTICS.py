@@ -18,7 +18,10 @@ def get_youtube_thumbnail(url):
         return f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
     return None
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.title("📊 Social Media Analytics")
 
